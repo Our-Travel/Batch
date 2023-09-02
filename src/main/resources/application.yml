@@ -1,0 +1,13 @@
+spring:
+  profiles:
+    active: local
+    include: secret
+
+kakao:
+  rest:
+    api:
+      key: '${rest.api.key.kakao}'
+
+open:
+  api:
+    key: '${rest.api.key.open}'

@@ -1,0 +1,21 @@
+spring:
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
+  datasource:
+    url: '${local.url}'
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: '${local.username}'
+    password: '${local.password}'
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+    properties:
+      hibernate:
+        show_sql: true
+        format_sql: true
+        use_sql_comments: true
