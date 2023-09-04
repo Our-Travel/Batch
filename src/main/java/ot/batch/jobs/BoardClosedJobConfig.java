@@ -20,56 +20,56 @@ import java.time.LocalDateTime;
 import java.util.Map;
 
 @Configuration
-public class BoardOpenJobConfig {
+public class BoardClosedJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
 
-    public BoardOpenJobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, EntityManagerFactory entityManagerFactory){
+    public BoardClosedJobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, EntityManagerFactory entityManagerFactory){
         this.jobBuilderFactory = jobBuilderFactory;
         this.stepBuilderFactory = stepBuilderFactory;
         this.entityManagerFactory = entityManagerFactory;
     }
 
     @Bean
-    public Job boardOpenJob(){
-        return this.jobBuilderFactory.get("boardOpenJob")
-                .start(boardOpenStep())
+    public Job boardClosedJob(){
+        return this.jobBuilderFactory.get("boardClosedJob")
+                .start(boardClosedStep())
                 .build();
     }
 
     @Bean
-    public Step boardOpenStep(){
-        return this.stepBuilderFactory.get("boardOpenStep")
+    public Step boardClosedStep(){
+        return this.stepBuilderFactory.get("boardClosedStep")
                 .<TravelBoard, TravelBoard>chunk(1000)
-                .reader(boardOpenItemReader())
-                .processor(boardOpenItemProcessor())
-                .writer(boardOpenItemWriter())
+                .reader(boardClosedItemReader())
+                .processor(boardClosedItemProcessor())
+                .writer(boardClosedItemWriter())
                 .build();
     }
 
     @Bean
     @StepScope
-    public JpaCursorItemReader<TravelBoard> boardOpenItemReader(){
+    public JpaCursorItemReader<TravelBoard> boardClosedItemReader(){
         return new JpaCursorItemReaderBuilder<TravelBoard>()
-                .name("boardOpenItemReader")
+                .name("boardClosedItemReader")
                 .entityManagerFactory(entityManagerFactory)
-                .queryString("select b from TravelBoard b where b.recruitmentStatus = :recruitmentStatus and b.recruitmentPeriodStart <= :now and b.deletedDate IS NULL")
-                .parameterValues(Map.of("recruitmentStatus", RecruitmentStatus.UPCOMING, "now", LocalDateTime.now()))
+                .queryString("select b from TravelBoard b where (b.recruitmentStatus = :recruitmentStatus or b.recruitmentStatus = :personnel) and b.recruitmentPeriodEnd <= :now and b.deletedDate IS NULL")
+                .parameterValues(Map.of("recruitmentStatus", RecruitmentStatus.OPEN, "personnel", RecruitmentStatus.FULL, "now", LocalDateTime.now()))
                 .build();
     }
 
     @Bean
-    public ItemProcessor<TravelBoard, TravelBoard> boardOpenItemProcessor(){
+    public ItemProcessor<TravelBoard, TravelBoard> boardClosedItemProcessor(){
         return travelBoard -> {
-            travelBoard.updateRecruitmentStatus(RecruitmentStatus.OPEN);
+            travelBoard.updateRecruitmentStatus(RecruitmentStatus.CLOSED);
             return travelBoard;
         };
     }
 
     @Bean
-    public JpaItemWriter<TravelBoard> boardOpenItemWriter(){
+    public JpaItemWriter<TravelBoard> boardClosedItemWriter(){
         return new JpaItemWriterBuilder<TravelBoard>()
                 .entityManagerFactory(entityManagerFactory)
                 .build();
