@@ -1,11 +1,16 @@
 package ot.batch.repository.book;
 
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import ot.batch.repository.BaseTimeEntity;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 import java.time.LocalDate;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Getter
+@Entity
 public class TravelBoard extends BaseTimeEntity {
 
     private String title;

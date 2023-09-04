@@ -42,7 +42,7 @@ public class BoardOpenJobConfig {
     @Bean
     public Step boardOpenStep(){
         return this.stepBuilderFactory.get("boardOpenStep")
-                .<TravelBoard, TravelBoard>chunk(1000)
+                .<TravelBoard, TravelBoard>chunk(50)
                 .reader(boardOpenItemReader())
                 .processor(boardOpenItemProcessor())
                 .writer(boardOpenItemWriter())

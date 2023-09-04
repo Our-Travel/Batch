@@ -42,7 +42,7 @@ public class BoardClosedJobConfig {
     @Bean
     public Step boardClosedStep(){
         return this.stepBuilderFactory.get("boardClosedStep")
-                .<TravelBoard, TravelBoard>chunk(1000)
+                .<TravelBoard, TravelBoard>chunk(60)
                 .reader(boardClosedItemReader())
                 .processor(boardClosedItemProcessor())
                 .writer(boardClosedItemWriter())
