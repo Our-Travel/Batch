@@ -1,15 +1,6 @@
 spring:
-  batch:
-    job:
-      names: ${job.name:NONE}
-    jdbc:
-      initialize-schema: ALWAYS
   datasource:
     url: '${prod.url}'
     driver-class-name: org.mariadb.jdbc.Driver
     username: '${prod.username}'
     password: '${prod.password}'
-
-  jpa:
-    hibernate:
-      ddl-auto: validate

@@ -1,9 +1,4 @@
 spring:
-  batch:
-    job:
-      names: ${job.name:NONE}
-    jdbc:
-      initialize-schema: ALWAYS
   datasource:
     url: '${local.url}'
     driver-class-name: org.mariadb.jdbc.Driver
@@ -11,9 +6,6 @@ spring:
     password: '${local.password}'
 
   jpa:
-    hibernate:
-      ddl-auto: validate
-
     properties:
       hibernate:
         show_sql: true

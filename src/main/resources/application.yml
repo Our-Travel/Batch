@@ -1,7 +1,21 @@
 spring:
+  batch:
+    job:
+      names: ${job.name:NONE}
+    jdbc:
+      initialize-schema: ALWAYS
+
   profiles:
     active: local
     include: secret
+
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  datasource:
+    hikari:
+      maximum-pool-size: 20
+
 
 kakao:
   rest:
