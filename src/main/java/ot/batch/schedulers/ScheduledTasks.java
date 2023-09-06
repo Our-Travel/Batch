@@ -17,26 +17,26 @@ import ot.batch.jobs.KakaoJobConfig;
 @RequiredArgsConstructor
 public class ScheduledTasks {
 
-    private final JobLauncher jobLauncher;
-
-    private final KakaoJobConfig kakaoJobConfig;
-
-    private final BoardJobConfig boardJobConfig;
-
-    @Scheduled(cron = "0 0 0 * * *")
-    public void runBoardClosedJob() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        JobParameters params = new JobParametersBuilder()
-                .addString("JobID", String.valueOf(System.currentTimeMillis()))
-                .toJobParameters();
-        jobLauncher.run(boardJobConfig.boardJob(), params);
-    }
-
-    @Scheduled(cron = "0 0 0 1 * *")
-    public void runKakaoJobConfig() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
-        JobParameters params = new JobParametersBuilder()
-                .addString("JobID", String.valueOf(System.currentTimeMillis()))
-                .toJobParameters();
-        jobLauncher.run(kakaoJobConfig.kakaoApiJob(), params);
-    }
+//    private final JobLauncher jobLauncher;
+//
+//    private final KakaoJobConfig kakaoJobConfig;
+//
+//    private final BoardJobConfig boardJobConfig;
+//
+//    @Scheduled(cron = "0 0 0 * * *")
+//    public void runBoardClosedJob() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+//        JobParameters params = new JobParametersBuilder()
+//                .addString("JobID", String.valueOf(System.currentTimeMillis()))
+//                .toJobParameters();
+//        jobLauncher.run(boardJobConfig.boardJob(), params);
+//    }
+//
+//    @Scheduled(cron = "0 0 0 1 * *")
+//    public void runKakaoJobConfig() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+//        JobParameters params = new JobParametersBuilder()
+//                .addString("JobID", String.valueOf(System.currentTimeMillis()))
+//                .toJobParameters();
+//        jobLauncher.run(kakaoJobConfig.kakaoApiJob(), params);
+//    }
 
 }
