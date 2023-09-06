@@ -1,7 +1,7 @@
 spring:
   batch:
     job:
-      names: ${job.name:NONE}
+      enabled: true
     jdbc:
       initialize-schema: ALWAYS
 
@@ -25,3 +25,6 @@ kakao:
 open:
   api:
     key: '${rest.api.key.open}'
+
+server:
+  port: 8084

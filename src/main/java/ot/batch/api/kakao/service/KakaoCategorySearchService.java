@@ -22,11 +22,11 @@ public class KakaoCategorySearchService {
     @Value("${kakao.rest.api.key}")
     private String kakaoRestApiKey;
 
-    public KakaoApiResponseDTO requestCategorySearch(String categoryGroupCode, double longitude, double latitude){
+    public KakaoApiResponseDTO requestCategorySearch(String categoryGroupCode, double longitude, double latitude, int page){
 
         if(ObjectUtils.isEmpty(categoryGroupCode) || ObjectUtils.isEmpty(longitude) || ObjectUtils.isEmpty(latitude)) return null;
 
-        URI uri = kakaoUriBuilderService.buildUriCategorySearch(categoryGroupCode, longitude, latitude);
+        URI uri = kakaoUriBuilderService.buildUriCategorySearch(categoryGroupCode, longitude, latitude, page);
 
         HttpHeaders headers = new HttpHeaders();
         headers.set(HttpHeaders.AUTHORIZATION, "KakaoAK " + kakaoRestApiKey);
