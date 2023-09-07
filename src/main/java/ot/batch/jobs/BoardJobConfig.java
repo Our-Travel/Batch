@@ -14,8 +14,8 @@ import org.springframework.batch.item.database.builder.JpaCursorItemReaderBuilde
 import org.springframework.batch.item.database.builder.JpaItemWriterBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import ot.batch.repository.book.RecruitmentStatus;
-import ot.batch.repository.book.TravelBoard;
+import ot.batch.repository.board.RecruitmentStatus;
+import ot.batch.repository.board.TravelBoard;
 
 import javax.persistence.EntityManagerFactory;
 import java.time.LocalDate;

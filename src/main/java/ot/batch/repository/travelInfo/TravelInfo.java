@@ -1,16 +1,13 @@
 package ot.batch.repository.travelInfo;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ot.batch.api.kakao.dto.DocumentDTO;
+import ot.batch.api.open.dto.OpenApiInfoDto;
 import ot.batch.repository.BaseTimeEntity;
 
 
-import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
+import javax.persistence.*;
 
 
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,32 +15,43 @@ import javax.persistence.Enumerated;
 @Entity
 public class TravelInfo extends BaseTimeEntity {
 
-    private Long placeId;
-    private String placeName;
-    private String phone;
-    private String placeUrl;
+    private int contentId;
+    private int contentTypeId;
+    private String title;
     private String address;
-    private String roadAddress;
+    private String tel;
+    private String telName;
     private double longitude;
     private double latitude;
+    private String image;
+    private String homePage;
+    private String overView;
 
-    @Enumerated(EnumType.STRING)
-    private PlaceResource placeResource;
-
-    private TravelInfo(DocumentDTO documentDTO){
-        this.placeId = documentDTO.getId();
-        this.placeName = documentDTO.getPlaceName();
-        this.phone = documentDTO.getPhone();
-        this.placeUrl = documentDTO.getPlaceUrl();
-        this.address = documentDTO.getAddressName();
-        this.roadAddress = documentDTO.getRoadAddressName();
-        this.longitude = documentDTO.getLongitude();
-        this.latitude = documentDTO.getLatitude();
+    private TravelInfo(OpenApiInfoDto openApiInfoDto){
+        this.contentId = openApiInfoDto.getContentId();
+        this.contentTypeId = openApiInfoDto.getContentTypeId();
+        this.title = openApiInfoDto.getTitle();
+        this.address = openApiInfoDto.getAddress();
+        this.tel = openApiInfoDto.getTel();
+        this.longitude = openApiInfoDto.getLongitude();
+        this.latitude = openApiInfoDto.getLatitude();
+        this.image = openApiInfoDto.getImage();
     }
 
-    public static TravelInfo kakao(DocumentDTO documentDTO){
-        TravelInfo travelInfoKakao = new TravelInfo(documentDTO);
-        travelInfoKakao.placeResource = PlaceResource.KAKAO;
-        return travelInfoKakao;
+    public static TravelInfo of(OpenApiInfoDto openApiInfoDto){
+        TravelInfo travelInfo = new TravelInfo(openApiInfoDto);
+        return travelInfo;
+    }
+
+    public void updateTelName(String telName){
+        this.telName = telName;
+    }
+
+    public void updateHomePage(String homePage){
+        this.homePage = homePage;
+    }
+
+    public void updateOverView(String overView){
+        this.overView = overView;
     }
 }

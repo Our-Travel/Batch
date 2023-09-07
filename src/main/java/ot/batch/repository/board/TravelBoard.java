@@ -1,4 +1,4 @@
-package ot.batch.repository.book;
+package ot.batch.repository.board;
 
 import lombok.AccessLevel;
 import lombok.Getter;

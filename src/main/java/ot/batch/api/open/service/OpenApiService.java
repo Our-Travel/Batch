@@ -9,11 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ot.batch.api.open.dto.OpenApiInfoDto;
 import ot.batch.api.open.dto.OpenApiCommonDto;
-import ot.batch.api.open.dto.OpenApiIntroDto;
 
 import java.net.URI;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,64 +57,15 @@ public class OpenApiService {
         return infoData(jsonItemList);
     }
 
-    public List<OpenApiCommonDto> requestCommon(int contentId, int contentType){
+    public OpenApiCommonDto requestCommon(int contentId, int contentType){
         URI uri = uriBuilderService.builerUriCommon(contentId, contentType);
         JSONArray jsonItemList = parseJsonToItemsArray(uri);
-        List<OpenApiCommonDto> result = new ArrayList<>();
+        OpenApiCommonDto commonDto = null;
         for(Object o : jsonItemList){
             JSONObject item = (JSONObject) o;
-            result.add(makeCommonDto(item));
+            commonDto = OpenApiCommonDto.of(item);
         }
-        return result;
-    }
-
-//    public List<OpenApiIntroDto> requestIntro(int contentId, int contentType){
-//        URI uri = uriBuilderService.builderUriIntro(contentId, contentType);
-//        String jsonString = restTemplate.getForObject(uri, String.class);
-//        JSONArray jsonItemList = parseJsonToItemsArray(jsonString);
-//        List<OpenApiIntroDto> result = new ArrayList<>();
-//        for(Object o : jsonItemList){
-//            JSONObject item = (JSONObject) o;
-//            result.add(makeIntroDto(item));
-//        }
-//        return result;
-//    }
-//
-//    private OpenApiIntroDto makeIntroDto(JSONObject item){
-//        String eventStartString = (String) item.get("eventstartdate");
-//        String eventEndString = (String) item.get("eventenddate");
-//        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd");
-//        LocalDate startDate = LocalDate.parse(eventStartString, formatter);
-//        LocalDate endDate = LocalDate.parse(eventEndString, formatter);
-//        OpenApiIntroDto dto = OpenApiIntroDto.builder().
-//                eventStartDate(startDate).
-//                eventEndDate(endDate).
-//                playTime((String) item.get("playtime")).
-//
-//                build()
-//    }
-
-    private OpenApiCommonDto makeCommonDto(JSONObject item) {
-        OpenApiCommonDto dto = OpenApiCommonDto.builder().
-                telName((String) item.get("telname")).
-                homePage((String) item.get("homepage")).
-                overView((String) item.get("overview")).
-                build();
-        return dto;
-    }
-
-    private OpenApiInfoDto makeAreaDto(JSONObject item) {
-        OpenApiInfoDto dto = OpenApiInfoDto.builder().
-                contentId((Long) item.get("contentid")).
-                title((String) item.get("title")).
-                address((String) item.get("addr1")).
-                contentTypeId((Long) item.get("contenttypeid")).
-                tel((String) item.get("tel")).
-                longitude((double) item.get("mapx")).
-                latitude((double) item.get("mapy")).
-                image((String) item.get("firstimage")).
-                build();
-        return dto;
+        return commonDto;
     }
 
     private JSONArray parseJsonToItemsArray(URI uri) {
@@ -147,7 +95,7 @@ public class OpenApiService {
         List<OpenApiInfoDto> result = new ArrayList<>();
         for(Object o : jsonItemList){
             JSONObject item = (JSONObject) o;
-            result.add(makeAreaDto(item));
+            result.add(OpenApiInfoDto.of(item));
         }
         return result;
     }
