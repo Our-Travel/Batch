@@ -1,5 +1,6 @@
 package ot.batch.jobs;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.batch.core.Job;
 import org.springframework.batch.core.Step;
 import org.springframework.batch.core.configuration.annotation.JobBuilderFactory;
@@ -22,17 +23,12 @@ import java.time.LocalDate;
 import java.util.Map;
 
 @Configuration
+@RequiredArgsConstructor
 public class BoardJobConfig {
 
     private final JobBuilderFactory jobBuilderFactory;
     private final StepBuilderFactory stepBuilderFactory;
     private final EntityManagerFactory entityManagerFactory;
-
-    public BoardJobConfig(JobBuilderFactory jobBuilderFactory, StepBuilderFactory stepBuilderFactory, EntityManagerFactory entityManagerFactory){
-        this.jobBuilderFactory = jobBuilderFactory;
-        this.stepBuilderFactory = stepBuilderFactory;
-        this.entityManagerFactory = entityManagerFactory;
-    }
 
     @Bean
     public Job boardJob(){
