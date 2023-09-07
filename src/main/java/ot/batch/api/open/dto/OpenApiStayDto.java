@@ -9,9 +9,5 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenApiCommonDto {
-
-    private String telName;
-    private String homePage;
-    private String overView;
+public class OpenApiStayDto {
 }

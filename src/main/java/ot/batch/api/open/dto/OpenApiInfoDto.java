@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class OpenApiByAreaDto {
+public class OpenApiInfoDto {
 
     private Long contentId;
     private Long contentTypeId;
