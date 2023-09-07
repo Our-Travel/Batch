@@ -16,12 +16,6 @@ spring:
     hikari:
       maximum-pool-size: 20
 
-
-kakao:
-  rest:
-    api:
-      key: '${rest.api.key.kakao}'
-
 open:
   api:
     key: '${rest.api.key.open}'

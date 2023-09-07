@@ -3,6 +3,8 @@ package ot.batch.repository.travelInfo;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.SQLDelete;
+import org.hibernate.annotations.Where;
 import ot.batch.api.open.dto.OpenApiInfoDto;
 import ot.batch.repository.BaseTimeEntity;
 
@@ -13,6 +15,8 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Getter
 @Entity
+@SQLDelete(sql = "UPDATE travel_info SET deleted_date = NOW() where id = ?")
+@Where(clause = "deleted_date is NULL")
 public class TravelInfo extends BaseTimeEntity {
 
     private int contentId;
