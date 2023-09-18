@@ -28,7 +28,11 @@ public class TravelInfo extends BaseTimeEntity {
     private double longitude;
     private double latitude;
     private String image;
+
+    @Column(columnDefinition = "TEXT")
     private String homePage;
+
+    @Column(columnDefinition = "TEXT")
     private String overView;
 
     private TravelInfo(OpenApiInfoDto openApiInfoDto){

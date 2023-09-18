@@ -132,7 +132,6 @@ public class UriBuilderService {
                 .queryParam("MobileOS", "ETC")
                 .queryParam("MobileApp", "OT")
                 .queryParam("_type", "json")
-                .queryParam("arrange", "A")
                 .queryParam("contentTypeId", contentType)
                 .queryParam("contentId", contentId)
                 .queryParam("defaultYN", "Y")

@@ -1,7 +1,7 @@
 spring:
   batch:
-#    job:
-#      enabled: true
+    job:
+      enabled: true
     jdbc:
       initialize-schema: ALWAYS
 
@@ -11,7 +11,7 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none
   datasource:
     hikari:
       maximum-pool-size: 20

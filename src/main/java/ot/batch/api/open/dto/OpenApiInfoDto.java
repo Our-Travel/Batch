@@ -23,14 +23,30 @@ public class OpenApiInfoDto {
 
     public static OpenApiInfoDto of(JSONObject item){
         return OpenApiInfoDto.builder().
-                contentId((int) item.get("contentid")).
+                contentId(Integer.parseInt((String) item.get("contentid"))).
                 title((String) item.get("title")).
                 address((String) item.get("addr1")).
-                contentTypeId((int) item.get("contenttypeid")).
+                contentTypeId(Integer.parseInt((String) item.get("contenttypeid"))).
                 tel((String) item.get("tel")).
-                longitude((double) item.get("mapx")).
-                latitude((double) item.get("mapy")).
+                longitude(Double.parseDouble((String) item.get("mapx"))).
+                latitude(Double.parseDouble((String) item.get("mapy"))).
                 image((String) item.get("firstimage")).
                 build();
+    }
+
+    private static Integer parseInteger(Object object) {
+        try {
+            return object != null ? Integer.parseInt((String) object) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
+    }
+
+    private static Double parseDouble(Object object) {
+        try {
+            return object != null ? Double.parseDouble((String) object) : null;
+        } catch (NumberFormatException e) {
+            return null;
+        }
     }
 }

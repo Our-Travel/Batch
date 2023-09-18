@@ -128,9 +128,11 @@ public class OpenApiJobConfig {
                 List<TravelInfo> updatedTravelInfos = travelInfoList.parallelStream()
                         .map(travelInfo -> {
                             OpenApiCommonDto apiCommonDto = openApiService.requestCommon(travelInfo.getContentId(), travelInfo.getContentTypeId());
-                            travelInfo.updateHomePage(apiCommonDto.getHomePage());
-                            travelInfo.updateOverView(apiCommonDto.getOverView());
-                            travelInfo.updateTelName(apiCommonDto.getTelName());
+                            if (apiCommonDto != null) {
+                                travelInfo.updateHomePage(apiCommonDto.getHomePage());
+                                travelInfo.updateOverView(apiCommonDto.getOverView());
+                                travelInfo.updateTelName(apiCommonDto.getTelName());
+                            }
                             return travelInfo;
                         })
                         .toList();

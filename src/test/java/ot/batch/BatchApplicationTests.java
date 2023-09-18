@@ -13,8 +13,8 @@ class BatchApplicationTests {
 
 	@Test
 	void contextLoads() {
-		int a = openApiService.maxPage(15, 126.981611, 37.568477);
-		System.out.println(a);
+		System.out.println(openApiService.requestAreaBased(12, 3, 1));
+
 	}
 
 }
