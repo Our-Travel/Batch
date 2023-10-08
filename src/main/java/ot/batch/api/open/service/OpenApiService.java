@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.client.RestTemplate;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -131,8 +131,7 @@ public class OpenApiService {
         List<OpenApiInfoDto> result = new ArrayList<>();
         for(Object o : jsonItemList){
             JSONObject item = (JSONObject) o;
-            System.out.println(item);
-            System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+            if(ObjectUtils.isEmpty(item.get("contentid"))) continue;
             result.add(OpenApiInfoDto.of(item));
         }
         return result;
