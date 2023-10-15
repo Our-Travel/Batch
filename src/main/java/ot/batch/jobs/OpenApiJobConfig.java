@@ -158,17 +158,26 @@ public class OpenApiJobConfig {
                             int contentId = travelInfo.getContentId();
                             int contentTypeId = travelInfo.getContentTypeId();
 
-                            TypedQuery<TravelInfo> query = entityManager.createQuery(
-                                    "SELECT t FROM TravelInfo t WHERE t.contentId = :contentId AND t.contentTypeId = :contentTypeId AND t.deletedDate IS NOT NULL",
-                                    TravelInfo.class
+                            TypedQuery<Long> contentIdQuery = entityManager.createQuery(
+                                    "SELECT COUNT(t) FROM TravelInfo t WHERE t.contentId = :contentId",
+                                    Long.class
                             );
-                            query.setParameter("contentId", contentId);
-                            query.setParameter("contentTypeId", contentTypeId);
+                            contentIdQuery.setParameter("contentId", contentId);
 
-                            List<TravelInfo> existingTravelInfos = query.getResultList();
+                            Long count = contentIdQuery.getSingleResult();
+                            if (count == 0) {
+                                TypedQuery<TravelInfo> query = entityManager.createQuery(
+                                        "SELECT t FROM TravelInfo t WHERE t.contentId = :contentId AND t.contentTypeId = :contentTypeId AND t.deletedDate IS NOT NULL",
+                                        TravelInfo.class
+                                );
+                                query.setParameter("contentId", contentId);
+                                query.setParameter("contentTypeId", contentTypeId);
 
-                            if (existingTravelInfos.isEmpty()) {
-                                entityManager.persist(travelInfo);
+                                List<TravelInfo> existingTravelInfos = query.getResultList();
+
+                                if (existingTravelInfos.isEmpty()) {
+                                    entityManager.persist(travelInfo);
+                                }
                             }
                         }
                     }
