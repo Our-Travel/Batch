@@ -74,7 +74,7 @@ public class OpenApiJobConfig {
         /*
         관광 정보 API 호출
          */
-        int[] areaCodeAry = {1, 2, 3, 4, 5, 6, 7, 8, 31, 32};
+        int[] areaCodeAry = {1, 2, 3, 4, 5, 6, 7, 8, 31, 32, 33, 34, 35, 36, 37, 38, 39};
         int[] contentTypeIdAry = {12, 14, 25, 28};
         for(int areaCode : areaCodeAry){
             for(int contentTypeId : contentTypeIdAry){

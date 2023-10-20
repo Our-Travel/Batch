@@ -16,7 +16,7 @@ public class UriBuilderService {
     private static final String STAY = "searchStay1?";
     private static final String COMMON = "detailCommon1?";
     private static final String INTRO = "detailIntro1?";
-    private static final int NUM_OF_ROWS = 50;
+    private static final int NUM_OF_ROWS = 250;
 
 
     @Value("${open.api.key}")
